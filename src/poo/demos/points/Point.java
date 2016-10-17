@@ -24,8 +24,14 @@ public class Point extends Object {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // TODO: Fix me!
-        return super.equals(obj);
+    public boolean equals(Object other) {
+        if(!(other instanceof Point))
+            return false;
+
+        final Point theOther = (Point) other;
+        if(this == theOther)
+            return true;
+
+        return this.x == theOther.x && this.y == theOther.y;
     }
 }

@@ -18,4 +18,16 @@ public class Point3D extends Point {
         return "{ x: " + x + ", y: " + y +
                 ", z: " + z + " }";
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if(!(other instanceof Point3D))
+            return false;
+
+        final Point3D theOther = (Point3D) other;
+        if(this == theOther)
+            return true;
+
+        return super.equals(other) && this.z == theOther.z;
+    }
 }
