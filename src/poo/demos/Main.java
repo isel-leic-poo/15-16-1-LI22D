@@ -1,43 +1,38 @@
 package poo.demos;
 
+import poo.demos.expressions.newones.Expression;
+import poo.demos.expressions.newones.ExpressionParser;
+import poo.demos.expressions.old.ExpressionNode;
+import poo.demos.expressions.old.ExpressionNodeParser;
+
 import java.util.Scanner;
 
 public class Main {
 
-    private static class Token {
-        public String expr;
-        public int currIdx;
-
-        public Token(String expr) {
-            this.expr = expr;
-            currIdx = 0;
-        }
-    }
-
-    private static final ExpressionNode parseCommand(Token token) {
-
-        while(token.expr.charAt(token.currIdx) == ' ')
-            token.currIdx += 1;
-
-        if(Character.isDigit(token.expr.charAt(token.currIdx)))
-            return new ExpressionNode(token.expr.charAt(token.currIdx++) - '0');
-
-        char opr = token.expr.charAt(token.currIdx++);
-        ExpressionNode left = parseCommand(token);
-        ExpressionNode right = parseCommand(token);
-        return new ExpressionNode(
-                opr,
-                left,
-                right);
-    }
-
-    public static void main(String[] args) {
+    private static void runOldExpressionParser() {
         final Scanner kbd = new Scanner(System.in);
         String expressionLine = "";
         while(!(expressionLine = kbd.nextLine()).isEmpty()) {
-            final ExpressionNode exp = parseCommand(new Token(expressionLine));
+            ExpressionNodeParser parser = new ExpressionNodeParser(expressionLine);
+            final ExpressionNode exp = parser.parseCommand();
             System.out.print(exp.toString() + " = ");
             System.out.println(exp.getValue());
         }
+    }
+
+    private static void runNewExpressionParser() {
+        final Scanner kbd = new Scanner(System.in);
+        String expressionLine = "";
+        while(!(expressionLine = kbd.nextLine()).isEmpty()) {
+            ExpressionParser parser = new ExpressionParser(expressionLine);
+            final Expression exp = parser.parseCommand();
+            System.out.print(exp.toString() + " = ");
+            System.out.println(exp.evaluate());
+        }
+    }
+
+    public static void main(String[] args) {
+        // runOldExpressionParser()
+        runNewExpressionParser();
     }
 }

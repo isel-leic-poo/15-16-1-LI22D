@@ -1,4 +1,4 @@
-package poo.demos;
+package poo.demos.expressions.old;
 
 public class ExpressionNode {
 
