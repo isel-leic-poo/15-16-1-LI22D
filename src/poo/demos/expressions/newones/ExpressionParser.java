@@ -15,7 +15,7 @@ public class ExpressionParser {
 
     private final String expression;
 
-    private Expression parseCommand(Token token) {
+    private Expression parseCommand(Token token) throws InvalidOperationException {
 
         while(token.expr.charAt(token.currIdx) == ' ')
             token.currIdx += 1;
@@ -26,14 +26,14 @@ public class ExpressionParser {
         char opr = token.expr.charAt(token.currIdx++);
         Expression left = parseCommand(token);
         Expression right = parseCommand(token);
-        return new Operation(opr, left, right);
+        return new BinaryOperation(ArithmeticOperation.fromSymbol(opr), left, right);
     }
 
     public ExpressionParser(String expression) {
         this.expression = expression;
     }
 
-    public Expression parseCommand() {
+    public Expression parseCommand() throws InvalidOperationException {
         return parseCommand(new Token(expression));
     }
 }

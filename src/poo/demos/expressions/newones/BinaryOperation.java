@@ -1,11 +1,13 @@
 package poo.demos.expressions.newones;
 
+import static poo.demos.expressions.newones.ArithmeticOperation.*;
+
 /**
  * Class whose instances represent binary arithmetic operations.
  */
-public class Operation extends Expression {
+public class BinaryOperation extends Expression {
 
-    private final char operation;
+    private final ArithmeticOperation operation;
     private final Expression left;
     private final Expression right;
 
@@ -15,7 +17,7 @@ public class Operation extends Expression {
      * @param left The left operand
      * @param right The right operand
      */
-    public Operation(char operation, Expression left, Expression right) {
+    public BinaryOperation(ArithmeticOperation operation, Expression left, Expression right) {
         this.operation = operation;
         this.left = left;
         this.right = right;
@@ -24,14 +26,7 @@ public class Operation extends Expression {
     /** {@inheritDoc} */
     @Override
     public int evaluate() {
-        switch (operation) {
-            case '+': return left.evaluate() + right.evaluate();
-            case '-': return left.evaluate() - right.evaluate();
-            case '*': return left.evaluate() * right.evaluate();
-            case '/': return left.evaluate() / right.evaluate();
-            case '%': return left.evaluate() % right.evaluate();
-            default: return 0;
-        }
+        return operation.operate(left.evaluate(), right.evaluate());
     }
 
     /** {@inheritDoc} */

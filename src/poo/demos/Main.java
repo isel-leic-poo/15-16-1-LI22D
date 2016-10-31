@@ -2,6 +2,7 @@ package poo.demos;
 
 import poo.demos.expressions.newones.Expression;
 import poo.demos.expressions.newones.ExpressionParser;
+import poo.demos.expressions.newones.InvalidOperationException;
 import poo.demos.expressions.old.ExpressionNode;
 import poo.demos.expressions.old.ExpressionNodeParser;
 
@@ -24,10 +25,14 @@ public class Main {
         final Scanner kbd = new Scanner(System.in);
         String expressionLine = "";
         while(!(expressionLine = kbd.nextLine()).isEmpty()) {
-            ExpressionParser parser = new ExpressionParser(expressionLine);
-            final Expression exp = parser.parseCommand();
-            System.out.print(exp.toString() + " = ");
-            System.out.println(exp.evaluate());
+            try {
+                ExpressionParser parser = new ExpressionParser(expressionLine);
+                final Expression exp = parser.parseCommand();
+                System.out.print(exp.toString() + " = ");
+                System.out.println(exp.evaluate());
+            } catch(InvalidOperationException ioe) {
+                System.out.println("You typed an illegal operation (" + ioe.getMessage() + ")");
+            }
         }
     }
 
