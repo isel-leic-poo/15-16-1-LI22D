@@ -1,5 +1,8 @@
 package poo.demos;
 
+import poo.demos.containers.AbstractList;
+import poo.demos.containers.DynamicArray;
+import poo.demos.containers.SimplyLinkedList;
 import poo.demos.expressions.newones.Expression;
 import poo.demos.expressions.newones.ExpressionParser;
 import poo.demos.expressions.newones.InvalidOperationException;
@@ -39,5 +42,11 @@ public class Main {
     public static void main(String[] args) {
         // runOldExpressionParser()
         runNewExpressionParser();
+
+        final AbstractList<String> list = new DynamicArray<>();
+//        final AbstractList<String> list = new SimplyLinkedList<>();
+
+        list.add("SLB, O MAIOR");
+        final String str = list.get(0);
     }
 }
